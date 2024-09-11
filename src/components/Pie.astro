@@ -85,7 +85,7 @@ const { percent } = Astro.props;
   const pieContainer = document.querySelector(":has(> .pies)");
 
   const observer = new IntersectionObserver( 
-  ([e]) => (e.target as HTMLElement).style.setProperty("--bit", e.isIntersecting ? "1" : "0"),
+  ([e]) => e.target.style.setProperty("--bit", e.isIntersecting ? "1" : "0"),
   { threshold: 1, rootMargin: "-200px 0px", }
 );
   observer.observe(pieContainer);
