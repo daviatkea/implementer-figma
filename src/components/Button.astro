@@ -1,0 +1,28 @@
+---
+const { variant, ...rest } = Astro.props;
+---
+
+<button data-variant={variant} {...rest}>
+  <slot />
+</button>
+
+<style>
+  [data-variant="primary"] {
+    background: var(--text-body);
+
+    &:hover {
+      background: blue;
+    }
+  }
+  [data-variant="secondary"] {
+    background: blue;
+  }
+
+  [data-variant="ghost"] {
+    border: 1px solid;
+    color: #181818;
+    [data-theme="dark"] & {
+      color: #fff;
+    }
+  }
+</style>

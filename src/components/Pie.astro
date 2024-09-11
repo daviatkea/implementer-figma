@@ -1,0 +1,93 @@
+---
+const { percent } = Astro.props;
+---
+
+<article class="pies">
+  <div class="parent" style=`--percent: ${percent}`>
+    <div class="child"></div>
+  </div>
+</article>
+
+<style>
+  /* @keyframes bit {
+    to {
+      --bit: 1;
+    }
+  } */
+  @property --calc {
+    syntax: "<percentage>";
+    inherits: true;
+    initial-value: 0%;
+  }
+  @property --bit-calc {
+    syntax: "<percentage>";
+    inherits: true;
+    initial-value: 0%;
+  }
+  @property --count {
+    syntax: "<integer>";
+    inherits: true;
+    initial-value: 0;
+  }
+
+  article {
+    /* --bit: 0; */
+    /* @supports (animation-timeline: view()) { */
+        /* animation: bit step-end both;
+        animation-timeline: view();
+        animation-range: cover 0% entry calc(100% + 200px); */
+    /* } */
+  }
+
+  .parent {
+    --count: calc(var(--percent) * var(--bit));
+    --calc: calc(var(--percent) * 1%);
+    --bit-calc: calc(var(--calc) * var(--bit));
+    --offset-pos: 5px;
+    border: var(--offset-pos) solid transparent;
+    inline-size: 150px;
+    aspect-ratio: 1;
+    border-radius: 99px;
+    display: grid;
+    place-content: center;
+    
+    &::before {
+        transition: --count 1.5s;
+        counter-reset: count var(--count);
+        content: counter(count) '%';
+        font-feature-settings: "tnum";
+        font-weight: 600;
+        font-size: 1.8rem;
+        line-height: 1;
+    }
+
+    background:
+      linear-gradient(#fff, #fff) padding-box,
+      conic-gradient(red var(--bit-calc), blue 0) border-box;
+    position: relative;
+    transition: --bit-calc 1.5s;
+
+    .child {
+        position: absolute;
+      aspect-ratio: 1;
+      border-radius: 99px;
+      width: 20px;
+      background: red;
+      offset-path: border-box;
+      offset-distance: var(--bit-calc);
+      offset-anchor: 50% calc(50% - var(--offset-pos) / 2);
+    }
+  }
+</style>
+
+
+<script>
+  const pieContainer = document.querySelector(":has(> .pies)");
+
+  const observer = new IntersectionObserver( 
+  ([e]) => (e.target as HTMLElement).style.setProperty("--bit", e.isIntersecting ? "1" : "0"),
+  { threshold: 1, rootMargin: "-200px 0px", }
+);
+  observer.observe(pieContainer);
+
+</script>

@@ -1,0 +1,30 @@
+---
+import CoreValueCard from "./CoreValueCard.astro";
+const { data } = Astro.props;
+---
+
+<div>
+  <header>
+    <h2>{data.title}</h2>
+    <p>{data.subtitle}</p>
+  </header>
+  <ul role="list">
+    {data.values.map((values) => <CoreValueCard {...values} />)}
+  </ul>
+</div>
+
+<style>
+  div {
+    display: grid;
+    gap: 1rem;
+  }
+
+  ul {
+    display: flex;
+    gap: 1rem;
+
+    > * {
+      flex: 1;
+    }
+  }
+</style>

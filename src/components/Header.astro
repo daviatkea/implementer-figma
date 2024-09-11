@@ -1,0 +1,48 @@
+---
+import LoginForm from "./LoginForm.astro";
+import Popover from "./Popover.astro";
+---
+
+<header>
+  <div class="logo">
+    <a href="/">AskExperts</a>
+  </div>
+
+  <nav>
+    <ul role="list">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/team">Team</a></li>
+      <li><a href="/case">case</a></li>
+    </ul>
+  </nav>
+
+  <Popover id="loginPopup" label="Login">
+    <h2>Log in to Dashboard</h2>
+    <LoginForm />
+  </Popover>
+</header>
+
+<style>
+  header {
+    background: cyan;
+    display: flex;
+    gap: 1.875rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem max(1rem, 50% - var(--content-width) / 2);
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.875rem;
+  }
+  .logo {
+    a {
+      font-size: 1.6rem;
+      text-decoration: none;
+      font-weight: 700;
+    }
+  }
+</style>

@@ -1,9 +1,10 @@
 ---
 import type { ImageMetadata } from "astro";
+import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 
 const { employee } = Astro.props;
-const { img, name, title, description } = employee;
+const { img, name, title, description, slug } = employee;
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/images/*.{jpeg,jpg,png,gif}"
@@ -14,18 +15,59 @@ if (!images[img])
   );
 ---
 
-<article>
-  <h2>{name}</h2>
-  <h3>{title}</h3>
-  <p>{description}</p>
-  <Image src={images[img]()} alt={name} />
-</article>
+<li>
+  <article>
+    <figure>
+      <Image
+        src={images[img]()}
+        alt={name}
+        style=`view-transition-name: ${slug};`
+      />
+      <p class="title">{title}</p>
+    </figure>
+    <div class="content">
+      <h2><a href={`/employees/${slug}`}>{name}</a></h2>
+      <h3 transition:name={`title-${slug}`}>{title}</h3>
+      <p>{description}</p>
+    </div>
+  </article>
+</li>
 
 <style>
   @layer components {
+    li {
+      container: card / inline-size;
+    }
     article {
       color: var(--text-card);
       background: var(--bg-card);
+
+      @container card (width > 500px) {
+        display: flex;
+        gap: 1rem;
+      }
+    }
+
+    figure {
+      display: grid;
+
+      > * {
+        grid-area: 1 / 1;
+      }
+
+      .title {
+        padding: 1rem;
+        background: yellow;
+        color: #000;
+        place-self: end;
+        margin: 1rem;
+        z-index: 1;
+      }
+    }
+    [data-icon] {
+      color: red;
+      inline-size: 1.5rem;
+      block-size: auto;
     }
   }
 </style>

@@ -1,0 +1,49 @@
+---
+import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
+const { bgImage, title } = Astro.props;
+
+const importedImage = `/src/assets/images/${bgImage}`;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/*.{jpeg,jpg,png,gif}"
+);
+if (!images[importedImage])
+  throw new Error(
+    `"${importedImage}" does not exist in glob: "src/assets/images/*.{jpeg,jpg,png,gif}"`
+  );
+
+const optimizedBackground = await getImage({
+  src: images[importedImage](),
+  format: "webp",
+});
+---
+
+<section style={`background-image: url(${optimizedBackground.src});`}>
+  <header>
+    <h1>{title}</h1>
+  </header>
+</section>
+
+<style>
+  section {
+    grid-column: full;
+    display: grid;
+    grid: auto / subgrid;
+    background-size: cover;
+    background-position: 50% 40%;
+
+    > * {
+      grid-column: content;
+    }
+
+    header {
+      padding: 2rem;
+      background: #fff8;
+      backdrop-filter: blur(2px);
+      justify-self: start;
+      border-radius: 20px;
+      margin-block: clamp(3rem, 0.2727rem + 11.6364vw, 9rem);
+    }
+  }
+</style>

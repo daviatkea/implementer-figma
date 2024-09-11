@@ -1,0 +1,18 @@
+---
+import Hero from "../components/Hero.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../layouts/Container.astro";
+---
+
+<BaseLayout title="About">
+  <Hero title="About Us" bgImage="photo.jpg" />
+  <Container layout="full-bleed">
+    <h1>About Us</h1>
+    <p>
+      We are a team of passionate individuals who are dedicated to creating
+      beautiful and functional websites. Our team is made up of designers,
+      developers, and project managers who work together to create amazing
+      digital experiences.
+    </p>
+  </Container>
+</BaseLayout>

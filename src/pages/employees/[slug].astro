@@ -1,0 +1,80 @@
+---
+// @ts-nocheck
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const employeeData = await fetch(
+    "https://raw.githubusercontent.com/daviatkea/frontend-design/main/resources/json/employees.json"
+  ).then((res) => res.json());
+
+  return employeeData.map((employee) => {
+    return {
+      params: { slug: employee.slug },
+      props: { ...employee },
+    };
+  });
+}
+
+const { name, title, img, description, social_links, slug } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/*.{jpeg,jpg,png,gif}"
+);
+if (!images[img])
+  throw new Error(
+    `"${img}" does not exist in glob: "/src/assets/images/*.{jpeg,jpg,png,gif}"`
+  );
+---
+
+<BaseLayout title={name}>
+  <article>
+    <Image
+      src={images[img]()}
+      alt={name}
+      style=`view-transition-name: ${slug}`
+    />
+    <div class="content flow">
+      <header>
+        <div>
+          <h1>{name}</h1>
+          <p transition:name={`title-${slug}`}>{title}</p>
+        </div>
+        <ul role="list">
+          <li>
+            <a href={social_links.instagram}>Instagram</a>
+          </li>
+          <li>
+            <a href={social_links.facebook}>Facebook</a>
+          </li>
+          <li>
+            <a href={social_links.twitter}>Twitter</a>
+          </li>
+        </ul>
+      </header>
+      <p>{description}</p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  article {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 1rem;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+</style>

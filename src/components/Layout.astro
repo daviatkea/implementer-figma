@@ -1,0 +1,15 @@
+---
+const { method = "grid", gap = "0" } = Astro.props;
+---
+
+<div>
+  <slot />
+</div>
+
+<style define:vars={{ method, gap }}>
+  div {
+    display: var(--method);
+    flex-wrap: wrap;
+    gap: var(--gap);
+  }
+</style>

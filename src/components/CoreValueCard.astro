@@ -1,0 +1,19 @@
+---
+const { title, description, link, icon } = Astro.props;
+---
+
+<li>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <a href={link.url}>{link.text}</a>
+</li>
+
+<style>
+  li {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+    align-self: start;
+    background: var(--bg-card);
+  }
+</style>

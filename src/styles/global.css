@@ -3,14 +3,19 @@
 @import url("./reset.css") layer(reset);
 @import url("./overrides.css") layer(overrides);
 
+@view-transition {
+    navigation: auto;
+}
+
+
+
 @layer global {
     html {
-        --body-text: #595566;
-
         font-family: system-ui;
         color: var(--body-text);
         line-height: 1.5;
 
+        --content-width: 1200px;
     }
 
     h1 {

@@ -6,4 +6,12 @@
     h2 {
         --flow-space: 2rem;
     }
+
+    p {
+        --flow-space: .81rem;
+    }
+
+    div {
+        --flow-space: 1.5rem;
+    }
 }
