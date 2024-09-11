@@ -24,9 +24,9 @@ if (!images[img])
         style=`view-transition-name: ${slug};`
       />
       <p class="title">{title}</p>
-      <Icon name="layers" />
     </figure>
     <div class="content">
+      <Icon name="layers" />
       <h2><a href={`/employees/${slug}`}>{name}</a></h2>
       <h3 transition:name={`title-${slug}`}>{title}</h3>
       <p>{description}</p>
