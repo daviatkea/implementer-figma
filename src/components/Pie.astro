@@ -81,7 +81,7 @@ const { percent } = Astro.props;
 </style>
 
 
-<script>
+<script is:inline>
   const pieContainer = document.querySelector(":has(> .pies)");
 
   const observer = new IntersectionObserver( 
