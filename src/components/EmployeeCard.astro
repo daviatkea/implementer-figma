@@ -23,12 +23,11 @@ if (!images[img])
         alt={name}
         style=`view-transition-name: ${slug};`
       />
-      <p class="title">{title}</p>
+      <p class="title" transition:name={`title-${slug}`}>{title}</p>
     </figure>
     <div class="content">
       <Icon name="layers" />
       <h2><a href={`/employees/${slug}`}>{name}</a></h2>
-      <h3 transition:name={`title-${slug}`}>{title}</h3>
       <p>{description}</p>
     </div>
   </article>
