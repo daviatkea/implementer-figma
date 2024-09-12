@@ -21,7 +21,7 @@ if (!images[img])
       <Image
         src={images[img]()}
         alt={name}
-        style=`view-transition-name: "${slug}";`
+        style=`view-transition-name: ${slug};`
       />
       <p class="title" transition:name={`title-${slug}`}>{title}</p>
     </figure>
